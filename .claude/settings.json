@@ -1,0 +1,46 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(/raw/**)",
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(git push *)",
+      "Bash(mv raw/*)",
+      "Bash(mv ./raw/*)"
+    ],
+    "allow": [
+      "Bash(python3 -I tools/vault_scan.py *)",
+      "Bash(python3 tools/vault_scan.py *)",
+      "Bash(bash tools/judge_smoke.sh *)",
+      "Bash(bash tools/test_all.sh *)",
+      "Bash(python3 -I tools/hydro_verify.py *)",
+      "Bash(python3 -I tools/route_eval.py *)",
+      "Bash(python3 -I tools/brain_learn.py *)",
+      "Bash(python3 -I tools/tree_validate.py *)"
+    ]
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/tools/brain_hooks.py\" end"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/tools/tree_validate.py\" --root \"$CLAUDE_PROJECT_DIR\" --json"
+          }
+        ]
+      }
+    ]
+  }
+}

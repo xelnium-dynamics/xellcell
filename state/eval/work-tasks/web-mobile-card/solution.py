@@ -1,0 +1,1 @@
+open("card.html","w").write('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>.card{max-width:340px;margin:auto}</style><div class="card"><h1>the owner</h1><a href="mailto:alex@example.com">Mail</a></div>')

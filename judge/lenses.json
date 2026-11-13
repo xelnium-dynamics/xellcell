@@ -1,0 +1,50 @@
+{
+ "about": "v6: what usually goes wrong per scope class. brain_judge.py prints the matching list in the judge brief as hints for `flaws`. A lens never fails a requirement on its own. Edit freely; keep each line checkable from files. Scope classes without their own list use `general`; add a list for your field (finance, legal, data, ...) under any scope class you use.",
+ "engineering": [
+  "Numbers carry units and a source (measured, computed by which command, or assumed).",
+  "A simulation states its solver settings, mesh or time step, boundary conditions and a convergence or validation check; a plot alone is not validation.",
+  "Geometry files open and match the stated dimensions and units (mm vs m); STL is watertight when it is meant to be printed or meshed.",
+  "The result can be reproduced: the command or script that produced it is named and exists.",
+  "Graphics, game or WebGL work: it runs from a clean load with no console error, the stated library versions are the ones imported, and frame cost is stated when performance was a requirement.",
+  "Tests cover the changed behaviour, not only the happy path that already worked."
+ ],
+ "website": [
+  "Every local link, image and script path resolves; no file is referenced that was not delivered.",
+  "A viewport meta tag is present and nothing forces sideways scrolling on a 375 px screen.",
+  "Text contrast, focus states and alt text exist where the page has interactive or meaningful elements.",
+  "No placeholder copy (lorem ipsum, TODO, example.com) is left in a delivery that claims to be final.",
+  "Animation and WebGL have a reduced-motion or fallback path when the contract asked for accessibility or performance.",
+  "Claims about performance or SEO name the measurement that supports them."
+ ],
+ "brand": [
+  "Every colour used in the deliverables is in the stated palette (hex values match exactly).",
+  "The type system is consistent: the same families, weights and hierarchy across all pieces.",
+  "Logo files exist in the formats the contract names (vector first), with clear space and minimum size stated.",
+  "Print pieces state colour mode (CMYK or spot), bleed and finish; a screen mock-up is not a print file.",
+  "Bilingual pieces (two languages or two scripts) are both present and typeset correctly (direction, joining) where the contract asks for both.",
+  "The concept is stated and the pieces follow it; generic templates dressed in the palette are a flaw."
+ ],
+ "research": [
+  "Every factual claim names its source; a claim without one is marked as the author's inference.",
+  "Dates, prices and versions are given with the day they were checked.",
+  "\"Unknown\" is stated where the sources do not answer; no gap is filled by plausible guessing.",
+  "Sources that disagree are both shown."
+ ],
+ "cv_official": [
+  "Dates, titles and employers are consistent across every document in the delivery.",
+  "No claim appears that the supplied records do not support.",
+  "The document is in the language and format the contract names; page count matches."
+ ],
+ "system": [
+  "A change to a tool has a test that fails without it.",
+  "Nothing outside the stated scope was switched on, installed or deleted.",
+  "The undo path is written down and matches what was changed.",
+  "Numbers in the summary (tests passed, sizes, counts) appear in a command result, not only in prose."
+ ],
+ "general": [
+  "Every file the summary names exists and is the delivered version.",
+  "A number in the summary appears in a command result or an artifact, not only in prose.",
+  "Nothing outside the request was changed.",
+  "\"Verified\" names how it was verified."
+ ]
+}

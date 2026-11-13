@@ -1,0 +1,3 @@
+{"set": "prompt-skills-holdout-2", "positives": 20, "found": 17, "recall": 0.85, "negatives": 20, "false_alarms": 2, "false_alarm_rate": 0.1, "gate": "none (reported only)"}
+{"set": "prompt-skills-holdout", "positives": 40, "found": 32, "recall": 0.8, "negatives": 20, "false_alarms": 3, "false_alarm_rate": 0.15, "gate": "none (reported only)"}
+(public release: per-prompt miss and alarm lines removed; they listed the maintainers' private skill names)

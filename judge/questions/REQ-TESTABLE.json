@@ -1,0 +1,25 @@
+{
+ "id": "REQ-TESTABLE",
+ "question": "Can this hard requirement be checked with a concrete method?",
+ "output_type": "yes_no",
+ "labels": [
+  "yes",
+  "no"
+ ],
+ "state_fields": [
+  "requirement_text"
+ ],
+ "order_swap": false,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

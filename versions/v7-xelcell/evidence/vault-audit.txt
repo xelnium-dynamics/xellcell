@@ -1,0 +1,1 @@
+{"notes": 368, "errors": 0, "warnings": 10, "self_citation_warnings": 0, "hermes_mention_notes": 40}

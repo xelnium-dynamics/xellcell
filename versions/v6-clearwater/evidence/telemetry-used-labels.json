@@ -1,0 +1,12 @@
+{
+ "what": "which closed non-private live sessions get a 'used skill' label from brain_learn._extract_skill_signals, v5 rule against v6 rule (same records)",
+ "v5": {
+  "sessions_with_a_used_label": 16,
+  "of_them_with_a_one_word_skill_name": 11
+ },
+ "v6": {
+  "sessions_with_a_used_label": 6,
+  "of_them_with_a_one_word_skill_name": 0
+ },
+ "note": "public release: per-skill names removed (they were the maintainer's private skill library); counts kept"
+}

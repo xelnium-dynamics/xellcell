@@ -1,0 +1,1 @@
+open("logo.svg","w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#0b1f33"/><rect x="22" y="22" width="20" height="20" fill="#e85d2a"/></svg>')

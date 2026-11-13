@@ -1,0 +1,52 @@
+# XellCell: what stays local (your sessions, memory, indexes and runtime state)
+.DS_Store
+__pycache__/
+*.pyc
+# generated indexes and maps (rebuilt from your vault and your installed skills)
+index/*
+!index/.gitkeep
+Brain System/00-toc/
+# your working records
+sessions/*
+!sessions/.gitkeep
+queue/*
+!queue/.gitkeep
+reports/*
+!reports/.gitkeep
+reports/route-labels*.md
+raw/*
+!raw/.gitkeep
+_to_delete/
+# your private shelf and your own notes stay yours (remove a line to version them)
+Brain System/self/
+Brain System/projects/*
+!Brain System/projects/.gitkeep
+Brain System/history/*
+!Brain System/history/.gitkeep
+Brain System/lessons/*
+!Brain System/lessons/.gitkeep
+# runtime state written by the hooks, the judge, sleep and dream
+state/*.lock
+state/*.out
+state/*.log
+state/live-links.json
+state/hook-seen.json
+state/map-savings.jsonl
+state/skill-telemetry*.json*
+state/dream-*.json
+state/dream-*.jsonl
+state/sleep-*.json
+state/gym-last.json
+state/analysis/
+state/install-backups/
+state/external/
+state/folder-projects.json
+state/vault-policy.json
+state/harness2-experience.jsonl
+judge/log.jsonl
+judge/health-v2.json
+judge/gold/
+tools/judge-logs/
+gym/results*.tsv
+.obsidian/
+Brain System/.obsidian/

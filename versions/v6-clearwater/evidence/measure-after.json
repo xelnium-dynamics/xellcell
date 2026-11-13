@@ -1,0 +1,44 @@
+{
+ "holdout_1": {
+  "recall": "32/40",
+  "false_alarms": "3/20"
+ },
+ "holdout_2_blind": {
+  "recall": "17/20",
+  "false_alarms": "2/20"
+ },
+ "tuned_set": [
+  {
+   "set": "prompt-skills",
+   "positives": 88,
+   "found": 88,
+   "negatives": 30,
+   "false_alarms": 1,
+   "pass": true
+  },
+  {
+   "set": "route-notes",
+   "scored": 32,
+   "top5_correct": 32,
+   "pass": true
+  }
+ ],
+ "card_chars": 3608,
+ "hook_chars_per_message": [
+  1574,
+  479,
+  0,
+  483,
+  0,
+  0,
+  1517,
+  481,
+  0,
+  0,
+  492,
+  0,
+  166,
+  0
+ ],
+ "hook_chars_total_14_messages": 5192
+}

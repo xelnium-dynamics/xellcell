@@ -1,0 +1,2 @@
+live brain v3  (~/AgentBrain/tools/brain_hooks.py): conversation conv-1 was linked to the OPEN session ...aaaa; after a command that only mentions the words and prints the id of CLOSED session ...bbbb it is linked to: 20261112-174027-claude-bbbb   <-- re-linked to the closed session: every later shell write is refused
+HYDRO v6      (tools/brain_hooks.py): conversation conv-1 was linked to the OPEN session ...aaaa; after a command that only mentions the words and prints the id of CLOSED session ...bbbb it is linked to: 20261113-174230-claude-aaaa   (unchanged)

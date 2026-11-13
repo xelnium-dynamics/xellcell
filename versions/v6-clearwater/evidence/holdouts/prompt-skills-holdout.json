@@ -1,0 +1,317 @@
+{
+ "about": "HOLDOUT set, written 2026-11-13 by the v6 reviewer (Claude) BEFORE touching the router. Rule: never tune the router, the noise list, the families or the synonyms against these prompts, and never copy a phrase from here into code. It measures generalisation; route_eval.py reports it but it does not gate. When a case is wrong, fix the label here and note it in label_changes. `accept` holds regexes on the skill's short name.",
+ "positive": [
+  {
+   "prompt": "Add a bloom pass and a film grain overlay to the night scene of my game",
+   "accept": [
+    "threejs-postprocessing"
+   ]
+  },
+  {
+   "prompt": "The car model loads black, the GLB textures are missing in the browser",
+   "accept": [
+    "threejs-(loaders|materials|asset-pipeline|textures)"
+   ]
+  },
+  {
+   "prompt": "FPS drops to 20 when 300 trees are on screen, make them instanced",
+   "accept": [
+    "threejs-(performance|geometry)",
+    "three-best-practices"
+   ]
+  },
+  {
+   "prompt": "write a vertex shader that makes the water surface wave",
+   "accept": [
+    "shader"
+   ]
+  },
+  {
+   "prompt": "I need the character to walk with the keyboard and collide with walls",
+   "accept": [
+    "threejs-(interaction|animation|physics)",
+    "build-3d-game-rooms"
+   ]
+  },
+  {
+   "prompt": "Model a hard-surface sci-fi crate in Blender and export it for the web",
+   "accept": [
+    "blender-(hardsurface-modeling|export|web-3d|core)"
+   ]
+  },
+  {
+   "prompt": "rig the mascot so its arms can bend",
+   "accept": [
+    "rigging"
+   ]
+  },
+  {
+   "prompt": "design a bracket with two M6 holes and a 3 mm fillet, export STEP",
+   "accept": [
+    "cad"
+   ]
+  },
+  {
+   "prompt": "simulate smoke rising through the ventilation shaft",
+   "accept": [
+    "simulation"
+   ]
+  },
+  {
+   "prompt": "Create the full identity for a specialty coffee roaster: logo, colours, type",
+   "accept": [
+    "brand-identity",
+    "^brand$",
+    "logo",
+    "typography-system",
+    "color"
+   ]
+  },
+  {
+   "prompt": "design the box and the label for a saffron product",
+   "accept": [
+    "packaging"
+   ]
+  },
+  {
+   "prompt": "pick a name for my new padel club",
+   "accept": [
+    "naming"
+   ]
+  },
+  {
+   "prompt": "build the component library with variants and tokens in Figma",
+   "accept": [
+    "figma-generate-library",
+    "ui-design-systems",
+    "figma-ui-design"
+   ]
+  },
+  {
+   "prompt": "turn this Figma frame into React code",
+   "accept": [
+    "figma-design-to-code",
+    "figma-code",
+    "design-to-code"
+   ]
+  },
+  {
+   "prompt": "the landing page looks generic, make it feel premium",
+   "accept": [
+    "ui-(premium|taste|redesign)",
+    "design-taste",
+    "impeccable",
+    "web-design-guidelines",
+    "anti-slop",
+    "ui-ux-pro-max"
+   ]
+  },
+  {
+   "prompt": "audit my site for SEO problems",
+   "accept": [
+    "seo"
+   ]
+  },
+  {
+   "prompt": "add a scroll-driven hero animation to the homepage",
+   "accept": [
+    "motion",
+    "web-effects-library",
+    "awwwards",
+    "animation"
+   ]
+  },
+  {
+   "prompt": "make a 30 second promo video with code",
+   "accept": [
+    "remotion",
+    "video"
+   ]
+  },
+  {
+   "prompt": "research the top 5 competitors of a Lisbon architecture studio",
+   "accept": [
+    "competitor",
+    "competitive",
+    "research"
+   ]
+  },
+  {
+   "prompt": "the page throws a console error on load, find out why",
+   "accept": [
+    "debug"
+   ]
+  },
+  {
+   "prompt": "write microcopy for the checkout buttons and the error states",
+   "accept": [
+    "ux-(copy|writing)"
+   ]
+  },
+  {
+   "prompt": "extract the tables from this PDF into a spreadsheet",
+   "accept": [
+    "^pdf$",
+    "xlsx",
+    "pdf"
+   ]
+  },
+  {
+   "prompt": "light the interior scene for a warm evening mood",
+   "accept": [
+    "lighting"
+   ]
+  },
+  {
+   "prompt": "check the typography hierarchy on the poster",
+   "accept": [
+    "typography"
+   ]
+  },
+  {
+   "prompt": "React Three Fiber scene with drei controls",
+   "accept": [
+    "r3f",
+    "react-three-fiber"
+   ]
+  },
+  {
+   "prompt": "what should I check before I put the website online",
+   "accept": [
+    "deploy",
+    "web-design-guidelines",
+    "seo-audit",
+    "testing"
+   ]
+  },
+  {
+   "prompt": "scatter rocks on the terrain with geometry nodes",
+   "accept": [
+    "geometry-nodes"
+   ]
+  },
+  {
+   "prompt": "Build a new room for the 3D portfolio game with objects you can click",
+   "accept": [
+    "build-3d-game-rooms",
+    "threejs-interaction"
+   ]
+  },
+  {
+   "prompt": "review the brand for consistency across the deck and the site",
+   "accept": [
+    "brand-(audit|review|guidelines)"
+   ]
+  },
+  {
+   "prompt": "write a test plan for the booking flow",
+   "accept": [
+    "testing"
+   ]
+  },
+  {
+   "prompt": "animate the logo eye blinking as an SVG",
+   "accept": [
+    "svg-eye-logo-animation",
+    "animation",
+    "motion"
+   ]
+  },
+  {
+   "prompt": "set up design tokens and dark mode for the dashboard UI",
+   "accept": [
+    "ui-design-systems",
+    "ui-styling",
+    "figma-generate-library",
+    "design-system"
+   ]
+  },
+  {
+   "prompt": "particle fire effect with a custom GLSL material",
+   "accept": [
+    "threejs-(shaders|materials)",
+    "shader"
+   ]
+  },
+  {
+   "prompt": "reduce the polycount of the Blender model for a mobile game",
+   "accept": [
+    "blender-game-optimization",
+    "blender-asset-qa"
+   ]
+  },
+  {
+   "prompt": "camera fly-through animation of the building",
+   "accept": [
+    "cameras",
+    "animation"
+   ]
+  },
+  {
+   "prompt": "turn the user interviews into personas",
+   "accept": [
+    "user-research",
+    "ux-research",
+    "research-synthesis"
+   ]
+  },
+  {
+   "prompt": "create a mesh gradient background in Figma",
+   "accept": [
+    "figma-effects",
+    "figma-shaders"
+   ]
+  },
+  {
+   "prompt": "positioning statement for a boutique law firm",
+   "accept": [
+    "brand-(positioning|strategy|messaging)"
+   ]
+  },
+  {
+   "prompt": "export the model as GLB with draco compression",
+   "accept": [
+    "export",
+    "asset-pipeline",
+    "loaders"
+   ]
+  },
+  {
+   "prompt": "Erstelle ein Briefing für das Logo eines Cafés",
+   "accept": [
+    "logo",
+    "brand-identity"
+   ]
+  }
+ ],
+ "negative": [
+  "ok do it",
+  "what did you change in the last step?",
+  "hmm not sure, give me a second",
+  "why is it taking so long",
+  "perfect, continue",
+  "can you repeat that in simpler words",
+  "how many tokens did we use so far?",
+  "stop, wait for me",
+  "I'll be back in an hour",
+  "sounds great, what's next?",
+  "no, the other one",
+  "undo that",
+  "which option do you recommend?",
+  "is it done?",
+  "tell me a bit more about option B",
+  "let's call it a day",
+  "did the tests pass?",
+  "show me the diff",
+  "morning! where were we?",
+  "that is not what I asked for"
+ ],
+ "label_changes": [
+  {
+   "date": "2026-11-13",
+   "prompt": "research the top 5 competitors of a Lisbon architecture studio",
+   "change": "accept gained 'competitive' (competitive-brief / competitive-intel are right answers; the first label only matched 'competitor')",
+   "by": "v6 reviewer, before any router change was measured against it"
+  }
+ ]
+}

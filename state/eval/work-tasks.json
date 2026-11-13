@@ -1,0 +1,75 @@
+{
+ "about": "v2.1 (Argon F6): 8 offline micro-tasks, 2 per domain of the owner's real work (career, website, brand, 3d). gym.py --suite work-tasks copies setup/ into a temp folder, runs the agent (BRAIN_WORK_AGENT=<command>, given the prompt as its last argument) or, by default, the reference solution.py, then scores with Tier 0 checks. Default mode proves the suite and the checks are sound; agent mode measures a harness.",
+ "tasks": [
+  {
+   "id": "cv-onepage-pdf",
+   "domain": "career",
+   "prompt": "Export cv.md as a ONE-page PDF named cv.pdf.",
+   "checks": [
+    "pdf_pages: cv.pdf :: 1"
+   ]
+  },
+  {
+   "id": "cv-sections",
+   "domain": "career",
+   "prompt": "cv.md must have the sections Experience, Education and Skills (add the missing ones, empty is fine).",
+   "checks": [
+    "contains: cv.md :: ^## Experience",
+    "contains: cv.md :: ^## Education",
+    "contains: cv.md :: ^## Skills"
+   ]
+  },
+  {
+   "id": "web-mobile-card",
+   "domain": "website",
+   "prompt": "Make card.html: a one-page contact card with a heading, that works on a 375px phone (viewport meta, no fixed width over 375px).",
+   "checks": [
+    "html: card.html :: h1",
+    "html_viewport: card.html"
+   ]
+  },
+  {
+   "id": "web-broken-link",
+   "domain": "website",
+   "prompt": "index.html links to about.html, which is missing. Fix it so every local link resolves.",
+   "checks": [
+    "links: index.html"
+   ]
+  },
+  {
+   "id": "brand-recolor",
+   "domain": "brand",
+   "prompt": "style.css must use only the colours in palette.json.",
+   "checks": [
+    "brand_tokens: style.css :: palette.json"
+   ]
+  },
+  {
+   "id": "brand-logo-svg",
+   "domain": "brand",
+   "prompt": "Make logo.svg (a simple mark) that uses only palette.json colours.",
+   "checks": [
+    "contains: logo.svg :: <svg",
+    "brand_tokens: logo.svg :: palette.json"
+   ]
+  },
+  {
+   "id": "cad-bracket",
+   "domain": "3d",
+   "prompt": "Write bracket.stl: a watertight block 40 x 20 x 5 mm.",
+   "checks": [
+    "stl_bbox: bracket.stl :: 40,20,5",
+    "stl_manifold: bracket.stl"
+   ]
+  },
+  {
+   "id": "cad-units",
+   "domain": "3d",
+   "prompt": "plate.stl was exported in centimetres (4 x 2 x 0.5). Re-export it in millimetres as plate.stl, still watertight.",
+   "checks": [
+    "stl_bbox: plate.stl :: 40,20,5",
+    "stl_manifold: plate.stl"
+   ]
+  }
+ ]
+}

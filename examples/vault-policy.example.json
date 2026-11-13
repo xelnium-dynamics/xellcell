@@ -1,0 +1,11 @@
+{
+ "about": "Optional. Copy to state/vault-policy.json to make vault_audit.py, brain_dream.py and brain_index.py enforce your own language rules. Without the file every language is allowed.",
+ "disallowed_scripts": {
+  "Cyrillic": "[\\u0400-\\u04FF]"
+ },
+ "warn_scripts": {},
+ "forbidden_rules": [
+  "every deliverable is bilingual by default"
+ ],
+ "english_only_descriptions": false
+}

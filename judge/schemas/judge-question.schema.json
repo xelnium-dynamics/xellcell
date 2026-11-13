@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Typed judge question (JEV style)",
+  "type": "object",
+  "required": ["id", "output_type", "labels", "state_fields", "threshold", "escalate_to", "version"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]+$", "examples": ["REQ-MET", "CLAIM-SUPPORT", "APPLIES"]},
+    "question": {"type": "string", "description": "One narrow question. No grading instructions inside the state."},
+    "output_type": {"enum": ["yes_no", "choice", "ordinal"]},
+    "labels": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "state_fields": {"type": "array", "items": {"type": "string"}, "description": "Exactly which evidence enters the state, e.g. requirement_text, evidence_excerpt, render_path"},
+    "order_swap": {"type": "boolean", "default": false, "description": "Pairwise questions run in both orders"},
+    "threshold": {
+      "type": "object",
+      "required": ["value", "labels_used", "rule", "model", "cli_version", "set_on", "expires_on"],
+      "properties": {
+        "value": {"type": ["number", "null"], "description": "null = cold start: always escalate"},
+        "labels_used": {"type": "integer"},
+        "rule": {"enum": ["lower_bound_95_within_2pts", "cold_start_escalate_all"]},
+        "model": {"type": "string"}, "cli_version": {"type": "string"},
+        "set_on": {"type": "string", "format": "date"}, "expires_on": {"type": "string", "format": "date"}
+      }
+    },
+    "route_direct_to_tier2_when": {"type": "array", "items": {"enum": ["derived_verdict", "style_adversarial", "reference_free_prose", "visual_quality", "deep_lane_hard_requirement"]}},
+    "escalate_to": {"enum": ["tier2_other_vendor", "owner"]},
+    "version": {"type": "integer"}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "skill_threshold": 6.5,
+  "note_threshold": 8.5,
+  "off_factor": 1.15,
+  "rel_cut": 0.45,
+  "len_norm": 10,
+  "route_min_overlap": 2,
+  "version": 1,
+  "released": "2026-11-08",
+  "by": "initial tuning, session 8e2b",
+  "len_cap": 1.4
+}

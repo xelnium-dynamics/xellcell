@@ -1,0 +1,27 @@
+{
+ "id": "SCOPE-COVER",
+ "question": "Does the evidence cover the wider scope this lesson claims?",
+ "output_type": "choice",
+ "labels": [
+  "yes",
+  "no",
+  "insufficient"
+ ],
+ "state_fields": [
+  "lesson",
+  "evidence_list"
+ ],
+ "order_swap": false,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

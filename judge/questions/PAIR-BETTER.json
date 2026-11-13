@@ -1,0 +1,31 @@
+{
+ "id": "PAIR-BETTER",
+ "question": "Which output better meets the requirement?",
+ "output_type": "choice",
+ "labels": [
+  "A",
+  "B",
+  "tie"
+ ],
+ "state_fields": [
+  "requirement_text",
+  "output_a",
+  "output_b"
+ ],
+ "order_swap": true,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [
+  "style_adversarial",
+  "visual_quality"
+ ],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

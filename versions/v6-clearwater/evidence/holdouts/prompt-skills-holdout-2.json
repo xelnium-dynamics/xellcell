@@ -1,0 +1,31 @@
+{
+ "about": "HOLDOUT 2, written 2026-11-13 by the v6 reviewer AFTER the router changes were frozen (the thin-prompt evidence gate was shaped with holdout 1 in view, so holdout 1 is no longer blind for that gate). Run once, reported as is, no tuning afterwards. Same rules as holdout 1: never tune against it, never copy a phrase into code. `accept` holds regexes on the skill's short name.",
+ "positive": [
+  {"prompt": "the shadows flicker on the terrain when the camera moves", "accept": ["threejs-(lighting|performance|shadows)", "lighting"]},
+  {"prompt": "bake the lighting into a texture for the room", "accept": ["lighting", "bak", "texture"]},
+  {"prompt": "unwrap the UVs of the helmet", "accept": ["uv"]},
+  {"prompt": "export a turntable render of the product", "accept": ["cameras", "animation", "render", "export"]},
+  {"prompt": "make the navbar sticky and blur the background on scroll", "accept": ["^ui-", "web-", "frontend", "motion", "tailwind", "css"]},
+  {"prompt": "design a business card and letterhead for the studio", "accept": ["brand", "print", "stationery"]},
+  {"prompt": "choose a colour palette for a kids' toy brand", "accept": ["color", "colour", "brand"]},
+  {"prompt": "write the brand guidelines document", "accept": ["brand-guidelines"]},
+  {"prompt": "convert the SVG logo to a 3D extruded mesh", "accept": ["geometry", "blender", "3d", "svg"]},
+  {"prompt": "figma auto layout is breaking in the card component", "accept": ["figma"]},
+  {"prompt": "add orbit controls and raycasting to pick objects", "accept": ["threejs-interaction", "threejs-fundamentals"]},
+  {"prompt": "load an HDRI environment map for reflections", "accept": ["threejs-(lighting|materials|textures|loaders)", "lighting", "lookdev"]},
+  {"prompt": "my shader compiles but the screen is black", "accept": ["shader", "debug"]},
+  {"prompt": "create an accessible contrast check for the palette", "accept": ["wcag", "a11y", "accessib", "color", "contrast", "audit"]},
+  {"prompt": "storyboard a 15 second product animation", "accept": ["motion", "animation", "storyboard", "video", "remotion"]},
+  {"prompt": "interview guide for testing the booking app with users", "accept": ["user-research", "ux-research", "usability"]},
+  {"prompt": "write alt text and headings for the homepage for search engines", "accept": ["seo"]},
+  {"prompt": "generate a parametric gear with 24 teeth", "accept": ["cad"]},
+  {"prompt": "set up a Three.js project with Vite", "accept": ["three"]},
+  {"prompt": "critique this poster layout", "accept": ["critique", "design-audit", "typography", "design-review"]}
+ ],
+ "negative": [
+  "cool", "wait what?", "that's wrong, try again", "can you explain why?", "how long will this take", "yes please", "nope",
+  "let me think about it", "what do you mean by that", "ok next one", "keep going", "I don't like it", "is that everything?",
+  "do you remember what I said earlier", "one moment", "good morning", "what's the status", "are you sure?", "thanks, bye", "hold on a sec"
+ ],
+ "label_changes": []
+}

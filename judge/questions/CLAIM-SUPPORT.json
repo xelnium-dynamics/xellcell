@@ -1,0 +1,29 @@
+{
+ "id": "CLAIM-SUPPORT",
+ "question": "Is this claim supported by the cited record?",
+ "output_type": "choice",
+ "labels": [
+  "supported",
+  "overstated",
+  "unsupported"
+ ],
+ "state_fields": [
+  "claim",
+  "record_excerpt"
+ ],
+ "order_swap": false,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [
+  "reference_free_prose"
+ ],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

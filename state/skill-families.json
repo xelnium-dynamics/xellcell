@@ -1,0 +1,4 @@
+{
+ "_about": "Optional skill families: when a message hits two or more `triggers` (or the session's scope is in `scopes`), the listed `skills` (short names of YOUR installed skills) get a ranking bonus, and `floor` skills are always offered in that scope. Empty by default; add your own, e.g. {\"accounting\": {\"triggers\": [\"invoice\", \"ledger\", \"vat\"], \"scopes\": [], \"skills\": [\"xlsx\", \"invoice-checker\"], \"floor\": []}}.",
+ "families": {}
+}

@@ -1,0 +1,26 @@
+{
+ "id": "DUP-SAME",
+ "question": "Do these two records state the same fact?",
+ "output_type": "yes_no",
+ "labels": [
+  "yes",
+  "no"
+ ],
+ "state_fields": [
+  "record_a",
+  "record_b"
+ ],
+ "order_swap": true,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

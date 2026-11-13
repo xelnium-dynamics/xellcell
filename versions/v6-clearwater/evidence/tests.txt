@@ -1,0 +1,8 @@
+baseline v5 (37b465c), bash tools/test_all.sh: Ran 111 tests in 68.356s
+baseline v5 (37b465c), bash tools/test_all.sh: OK
+baseline v5 (37b465c), bash tools/test_all.sh: exit=0
+after v6 (working tree), bash tools/test_all.sh: Ran 151 tests in 192.331s
+after v6 (working tree), bash tools/test_all.sh: OK
+after v6 (working tree), bash tools/test_all.sh: exit=0
+v6 tests only (test_v6_clearwater.py): Ran 40 tests in 39.309s
+v6 tests only (test_v6_clearwater.py): OK

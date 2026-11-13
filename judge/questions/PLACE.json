@@ -1,0 +1,31 @@
+{
+ "id": "PLACE",
+ "question": "Which collection does this record belong in?",
+ "output_type": "choice",
+ "labels": [
+  "self",
+  "projects",
+  "domains",
+  "capabilities",
+  "problems",
+  "lessons",
+  "history",
+  "system"
+ ],
+ "state_fields": [
+  "record_excerpt"
+ ],
+ "order_swap": false,
+ "threshold": {
+  "value": null,
+  "labels_used": 0,
+  "rule": "cold_start_escalate_all",
+  "model": "haiku",
+  "cli_version": "unset",
+  "set_on": "2026-11-08",
+  "expires_on": "2026-12-08"
+ },
+ "route_direct_to_tier2_when": [],
+ "escalate_to": "tier2_other_vendor",
+ "version": 1
+}

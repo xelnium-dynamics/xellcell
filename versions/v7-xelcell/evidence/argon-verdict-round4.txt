@@ -1,0 +1,69 @@
+{
+  "overall": "pass",
+  "verdicts": [
+    {
+      "requirement": "R1: the existing suite still passes after surgery — check: cmd: bash tools/test_all.sh exits 0 with no fewer than the 111 baseline tests",
+      "verdict": "pass",
+      "evidence": "Tier 0 and 06-tests.txt confirm `Ran 151 tests in 118.484s` and `after v6 (working tree), bash tools/test_all.sh: Ran 151 tests in 192.331s` compared to `baseline v5 (37b465c), bash tools/test_all.sh: Ran 111 tests in 68.356s`.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R2: every new behaviour has its own regression test — check: cmd: python3 -I -m unittest discover -s tools/tests -p \"test_v6*.py\" exits 0",
+      "verdict": "pass",
+      "evidence": "Tier 0 and 06-tests.txt confirm `v6 tests only (test_v6_clearwater.py): Ran 40 tests in 39.309s` with exit 0. 05-TESTMAP.md maps all 56 v6 behaviours to tests in 46-test_v6_clearwater.py, including `test_m4_glsl_css_and_json_files`, `test_h5_skill_paths_under_the_brain_are_shortened_once`, `test_h6_a_short_nudge_every_fifteenth_message`, `test_j3_the_judges_own_answer_is_checked_by_code`, `test_j9_a_failed_copy_is_taken_out_of_the_packet_and_export_writes_a_package`, `test_r6_router_on_marks_own_words_stores_no_message_text`, and `test_j10_a_verdict_from_a_judge_run_by_hand_is_recorded_and_checked`. The single stated exception (`Not covered by a test (stated, not hidden): one thing — a real judging CLI opening a sealed image.`) is appropriate because offline unit tests cannot invoke a live paid external CLI.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R3: the judge packet states what it received, the goal and the errors — check: contains: a brain_judge.py --dry-run packet has the sections Manifest, Goal, Errors and names every truncated or unseen input",
+      "verdict": "pass",
+      "evidence": "Both packet.md and 29-judge-brief-sample.md include `## 0 What you received (manifest — check it before judging)`, `## 1 Goal — the contract (frozen, verbatim)`, and `## 2 Errors and risk signals (machine records; evidence of what ran, not of correctness)`, naming every cut range and every sealed-only file such as `not inlined (sealed only); open ./artifacts/30-brain_judge.py`.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R4: token cost of the always-on surfaces goes down, measured — check: cmd: before/after character counts of the readiness card and of the per-message hook text, recorded in versions/v6-*/evidence/",
+      "verdict": "pass",
+      "evidence": "07-measure-before-v5.json and 08-measure-after.json record `hook text 18,281 → 5,192 chars over 14 messages; card 3,828 → 3,608`.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R5: nothing outside the HYDRO BRAIN folder is switched, installed or made live — check: cmd: hydro_install.py --status still reports the live configs on agent-brain; no LaunchAgent installed",
+      "verdict": "pass",
+      "evidence": "Tier 0 and `versions/v6-clearwater/evidence/install-status.json` confirm `~/Library/LaunchAgents/com.hydrobrain.dream.plist` is `not-installed` and all three live configs remain on agent-brain.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R6: vault hygiene holds — check: cmd: tree_validate.py, vault_scan.py, vault_audit.py report 0 errors",
+      "verdict": "pass",
+      "evidence": "Tier 0 and 17-tree-validate.txt, 18-vault-scan.txt, and 19-vault-audit.txt confirm `tree_validate: 0 error(s), 0 warning(s)` and `versions/v6-clearwater/evidence/vault-scan.txt` / `versions/v6-clearwater/evidence/vault-audit.txt` with 0 errors.",
+      "severity": "none",
+      "fix": ""
+    },
+    {
+      "requirement": "R7: routing quality is reported on prompts the builder never saw, not only on the tuned set — check: exists: versions/v6-*/evidence/ holds the fresh-prompt eval with its numbers",
+      "verdict": "pass",
+      "evidence": "10-route-eval-holdout.txt, 11-holdout-provenance.md, 12-real-traffic-compare.json, 24-hook-log-extract.jsonl, 25-real-traffic-v5.json, and 26-real-traffic-v6.json report `for the owner's 63 real requests it offers exactly the same skills; only small talk is quieter (8 → 2 of 21 real short messages get a skill list)` and `read_skill_was_offered_v6` = 2 of 2. With the -ing rule withdrawn, v6 routing on prompts with >= 3 content words is identical to v5 (for which Holdout 1, written at `17:45:53` in 24-hook-log-extract.jsonl before any router edit, is cross-author blind), while v6s thin-prompt gate (`len(substantive) <= 2`) is evaluated on Marks 63 pre-existing session requests and 21 short transcript messages.",
+      "severity": "none",
+      "fix": ""
+    }
+  ],
+  "flaws": [
+    "[Round 3 finding — R2 untested behaviours in TESTMAP.md]: FIXED. TESTMAP.md was expanded from 44 to 56 behaviours and tools/tests/test_v6_clearwater.py grew from 32 to 40 test methods, adding direct tests for GLSL/CSS/JSON mapping (test_m4), $BRAIN path shortening (test_h5), 15-message memory nudge (test_h6), quote pairing (test_j3), unsealing failed copies and --export (test_j9), one-word skill name guard (test_l8), route_real.py (test_r6), --record (test_j10), --sealed-only (test_j11), and Tier-0 timeout (test_j12). The single remaining untested item (a live external CLI opening a sealed PNG during a real model call) is explicitly disclosed and justified by the offline test constraint.",
+    "[Round 3 finding — R7 blind holdout provenance and builder self-evaluation]: FIXED. The maker (1) extracted raw hook log lines with timestamps into versions/v6-clearwater/evidence/hook-log-extract.jsonl, (2) built tools/route_real.py and evaluated v5 vs v6 on the owner's own pre-existing words (63 session requests and 21 short transcript messages <= 4 words), (3) caught that the v6 -ing stemmer altered offers on 32/63 real requests and withdrew it so >= 3 content-word routing is identical to Gemini's v5 router, and (4) documented in holdout-provenance.md which evaluation set is blind for which author/change.",
+    "[Round 3 finding — brain_judge.py quoted() and review_verdict() quote checking]: PARTLY FIXED. quoted() in tools/brain_judge.py:421-432 now pairs quotes in order and review_verdict() checks every extracted quote individually (verified by test_j3). However, two weaknesses remain: (1) in review_verdict() (lines 483-485), a fabricated quote on a pass verdict still only appends to judge_warnings and never downgrades verdict or overall; and (2) quoted() runs text.split(mark) independently for both double-quote and backtick, so if an evidence string wraps a code/JSON snippet containing a double quote inside backticks (or uses escaped quotes), split('\"') pairs across the inner quotes and extracts surrounding prose as a false quote.",
+    "[Round 3 finding — seal_artifacts() silent copy failure]: PARTLY FIXED. prepare() in tools/brain_judge.py:397-409 now compares SEALED.txt against seal_plan() and calls unseal() to rewrite the packet and manifest when a file fails to copy (verified by test_j9). However, prepare() only runs in call() and --export; --dry-run and --preflight call packet() without prepare(), so unreadable files that pass os.path.getsize() still appear as sealed in dry-run/preflight output. Also, call() intentionally never deletes its brain-judge-* temp directory in /tmp (up to 80 MB per judge run).",
+    "[Round 3 finding — 4 unsupported claims in maker summaries]: FIXED. All four claims flagged in verdict-03.json were either retracted or backed by sealed evidence: brain-summary.md corrected the false claim that no skill fitted and logged ecc-loop-design-check in 23-retrieval-log.jsonl; 23-retrieval-log.jsonl substantiates the 0 vault-note fetches; 14-linker-repro.txt, 27-linker-repro.py, and 24-hook-log-extract.jsonl row 4 substantiate the session linker overwrite incident; and 28-first-test-run-fixes-patch3.py substantiates the exact post-test fixes (4 code files and 3 test expectations).",
+    "[New v6 flaw — MAJOR: route_real.py ignores session scope_class when calling offered()]: In tools/route_real.py:50, requests() parses scope_class from each session contract solely to skip private scopes, then at line 70 calls offered(req) without passing scope. offered(text, scope=\"general\") defaults to \"general\", which skips scope-specific family boosts in detect_families(..., scope=scope) and bypasses the brand/website/cv_official skill score floor in tools/hydro_skills.py:185,412. Because brain_hooks.py:254 passes active_scope = scope_of(meta) in live sessions, route_real.py does not test the exact offer lists produced inside brand, website, or cv_official sessions.",
+    "[New v6 flaw — MAJOR: say-it-once hook suppression in tools/brain_hooks.py:271-281 drops relevant skills completely when no new skill triggers]: Once a skill is offered on an early turn and recorded in state/hook-seen.json, later turns in the same conversation filter it out of fresh. If the user pivots on turn 20 to a subtask that needs one of the skills offered on turn 1, and no new unseen skill happens to match turn 20 (so fresh is empty), the entire `if fresh:` block at tools/brain_hooks.py:272-281 is skipped—meaning not even the `(also still fitting, shown earlier: ...)` reminder is printed, and even when `fresh` is non-empty, the reminder omits the skill's $BRAIN path and description. In long un-compacted sessions (or in Codex if SessionStart source=\"compact\" is never emitted), needed skills go completely silent after turn 1.",
+    "[New v6 flaw — MAJOR: ground-truth recall on the owner's real prompts is still nearly unlabelled (2/63 sessions; 0/21 short messages)]: While real-traffic-compare.json proves v6 preserved v5's exact offers on all 63 multi-word session requests and cut short-message triggers from 8/21 to 2/21, only 2 of the 63 historical sessions recorded a SKILL.md read in evidence.jsonl, and the 21 short messages in real-traffic-v6.json store only SHA-256 hashes and offer counts without human positive/negative labels. Meanwhile, on the labelled holdouts (route-eval-holdout.txt), recall is 80%-85% (missing Three.js walk cycle, GLB black textures, mascot rigging, website launch checklist) and false alarms remain 10%-15% (\"good morning\" -> morning, \"let's call it a day\" -> end-of-day, \"how many tokens did we use so far?\" -> 5 design-token skills). Labelling ~25 real requests and short messages is the highest-leverage next step for router quality.",
+    "[New v6 flaw — MINOR: brain_session.py close duplicates lesson queueing before calling brain_learn.py]: tools/brain_session.py:369-381 still contains the v3 code that writes queue/<sid>-lesson.md for the close note's Proposed lesson before invoking brain_learn.learn_session(a.session, force=True) at line 387. When brain_learn.py runs, _existing_lesson_fps() sees <sid>-lesson.md already on disk, skips idx=1 in queueable[:MAX_QUEUED_PER_SESSION], and writes <sid>-lesson-2.md and <sid>-lesson-3.md—splitting one session's lessons across two naming schemes and leaving dead duplicate logic in cmd_close.",
+    "[New v6 flaw — MINOR: brain_map.py regex parser breaks on multi-line JS template literals and indented/wrapped declarations]: In tools/brain_map.py:84, _strip_js() strips backtick strings line-by-line (`re.sub(r\"`[^`]*`\", \"``\", l)`), so multi-line template literals (such as inline GLSL shaders in Three.js .js/.ts files) are not stripped and any `{` or `}` inside them corrupts end_of() brace counting. Additionally, parse_js() (lines 88-98) anchors const/let object and `new Foo()` matches at column 0 (`^()`), missing indented declarations or React.memo/forwardRef wrappers, and parse_glsl() (line 209) misses precision-qualified return types like `highp float foo()`.",
+    "[New v6 flaw — MINOR: uncleaned v5 state in working tree and minor test/CLI edge cases]: (1) state/skill-telemetry.json still holds the polluted v5 `used` counts (ship=13, start=6, fix=6, commit=5, figma=2), which hydro_skills.py:load_telemetry_boost() actively reads for up to +1.5 score boost until manually deleted per HANDOFF.md step 6; (2) Brain System/history/learnings/dream-reflections.md and dream-map.md still contain the pre-fix v5 text on disk; (3) tools/brain.py:35 appends extra flags at the end of argv (`rest + extra`), which can get consumed by `nargs=\"*\"` flags like `--artifacts` if placed last; and (4) three small CHANGELOG.md items (brain_judge.py CLI TimeoutExpired/OSError handling at lines 508-511, brain_dream.py calibrate_threshold alert printing, and verifying that compaction's seen_forget actually re-offers a previously suppressed skill on the next prompt) lack dedicated assertions in test_v6_clearwater.py."
+  ],
+  "inputs_missing": [],
+  "unsupported_claims": []
+}

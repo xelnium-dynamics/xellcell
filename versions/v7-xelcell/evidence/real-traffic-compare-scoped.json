@@ -1,0 +1,27 @@
+{
+ "what": "v5 router (git 37b465c) against the v7 router on the owner's real words, each request routed with ITS SESSION'S scope (and with scope general); tools/route_real.py of v7; no message text",
+ "router_sha256": {
+  "v5": "aee7aa9f6d4e632c2eed0d1f707e58e2cdea00beb35774cd32d09926501c2430",
+  "v7": "3de37b58766ec24308b8fda2eeb7bf57961a7addd0d848752373116abbfc55ee"
+ },
+ "requests": 63,
+ "identical_offer_with_session_scope": 63,
+ "identical_offer_with_scope_general": 63,
+ "requests_whose_scope_changes_the_offer": 2,
+ "scopes": {
+  "brand": 2,
+  "engineering": 5,
+  "general": 22,
+  "system": 23,
+  "website": 11
+ },
+ "sessions_with_a_real_skill_read": 2,
+ "read_skill_was_offered_v5": 2,
+ "read_skill_was_offered_v7": 2,
+ "short_messages": 21,
+ "get_a_skill_list_v5": 8,
+ "get_a_skill_list_v7": 2,
+ "same_set_of_skills_with_session_scope": 63,
+ "note": "v5 ran with v5's telemetry file (false 'used' counts), v7 with the telemetry rebuilt from the records; a difference here comes from that, the router code alone gave 63 of 63 identical (v6 evidence)",
+ "differences": []
+}

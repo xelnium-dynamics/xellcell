@@ -1,0 +1,6 @@
+{
+  "codex_model": null,
+  "claude_model": "sonnet",
+  "timeout_s": 900,
+  "note": "codex_model null = the default model of your Codex CLI; claude_model is passed to `claude --model`."
+}

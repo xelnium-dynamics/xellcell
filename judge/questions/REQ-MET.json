@@ -1,0 +1,35 @@
+{
+ "id": "REQ-MET",
+ "question": "Does the evidence show that this hard requirement is met?",
+ "output_type": "yes_no",
+ "labels": [
+  "yes",
+  "no",
+  "insufficient"
+ ],
+ "state_fields": [
+  "requirement_text",
+  "evidence_excerpt"
+ ],
+ "order_swap": false,
+ "threshold": {
+  "labels_used": 39,
+  "model": "haiku",
+  "cli_version": "2.1.323 (Claude Code)",
+  "set_on": "2026-11-14",
+  "expires_on": "2026-12-14",
+  "tier2_vendor": "codex",
+  "value": null,
+  "rule": "cold_start_escalate_all",
+  "tier1_agreed": 37,
+  "tier1_right": 27,
+  "tier1_lower_bound": 0.597,
+  "tier2_accuracy": 0.718
+ },
+ "route_direct_to_tier2_when": [
+  "derived_verdict",
+  "deep_lane_hard_requirement"
+ ],
+ "escalate_to": "tier2_other_vendor",
+ "version": 2
+}

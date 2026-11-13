@@ -1,0 +1,250 @@
+{
+ "_about": "Query words that widen a search (query word -> extra words). General vocabulary only; add the words of your own field, e.g. \"ledger\": [\"bookkeeping\", \"accounts\"].",
+ "resume": [
+  "cv",
+  "career"
+ ],
+ "cv": [
+  "resume"
+ ],
+ "deck": [
+  "slides",
+  "presentation"
+ ],
+ "slides": [
+  "deck",
+  "presentation"
+ ],
+ "palette": [
+  "brand",
+  "colors",
+  "color",
+  "color-palette-builder",
+  "swatch",
+  "theme",
+  "brand-system"
+ ],
+ "website": [
+  "web",
+  "frontend",
+  "landing",
+  "frontend-design",
+  "ui-taste",
+  "ui-premium",
+  "site",
+  "studio"
+ ],
+ "homepage": [
+  "website",
+  "landing"
+ ],
+ "landing": [
+  "website",
+  "frontend",
+  "hero",
+  "ui-taste",
+  "frontend-design",
+  "page"
+ ],
+ "chart": [
+  "visualize",
+  "data",
+  "data-visualization",
+  "create-viz",
+  "dataviz",
+  "bar",
+  "plot"
+ ],
+ "graph": [
+  "chart",
+  "visualize"
+ ],
+ "job": [
+  "career",
+  "application",
+  "job-finder",
+  "career-toolkit",
+  "jobs",
+  "apply-desk",
+  "resume"
+ ],
+ "brand": [
+  "palette",
+  "guidelines",
+  "visual"
+ ],
+ "font": [
+  "fonts",
+  "typeface",
+  "typography-system"
+ ],
+ "fonts": [
+  "typeface",
+  "typography-system"
+ ],
+ "color": [
+  "palette",
+  "color-palette-builder",
+  "colors",
+  "hex",
+  "brand-identity"
+ ],
+ "colors": [
+  "palette",
+  "color-palette-builder",
+  "theme"
+ ],
+ "ui": [
+  "ui-ux-pro-max",
+  "ui-taste",
+  "ui-premium",
+  "ui-styling",
+  "frontend-design",
+  "design",
+  "interface"
+ ],
+ "ux": [
+  "ux-research",
+  "ux-strategy",
+  "ux-writing",
+  "ui-ux-pro-max",
+  "interaction-design",
+  "usability"
+ ],
+ "design": [
+  "ui",
+  "ux",
+  "frontend-design",
+  "ui-taste",
+  "ui-ux-pro-max",
+  "visual",
+  "layout"
+ ],
+ "redesign": [
+  "ui-redesign",
+  "rebrand",
+  "restyle",
+  "ui-taste",
+  "audit"
+ ],
+ "audit": [
+  "design-audit",
+  "web-design-guidelines",
+  "accessibility-audit",
+  "review",
+  "ui-audit-reality-check"
+ ],
+ "accessibility": [
+  "accessibility-audit",
+  "wcag",
+  "a11y",
+  "aria",
+  "contrast",
+  "accessibility-review"
+ ],
+ "a11y": [
+  "accessibility",
+  "accessibility-audit",
+  "wcag",
+  "aria"
+ ],
+ "pdf": [
+  "pdf",
+  "documents",
+  "merge",
+  "fill",
+  "form"
+ ],
+ "merge": [
+  "pdf",
+  "combine",
+  "split"
+ ],
+ "form": [
+  "pdf",
+  "application-form-filler",
+  "fillable"
+ ],
+ "invoice": [
+  "xlsx",
+  "pdf",
+  "docx",
+  "format",
+  "template"
+ ],
+ "invoices": [
+  "xlsx",
+  "pdf",
+  "docx",
+  "format",
+  "template"
+ ],
+ "jobs": [
+  "job-finder",
+  "career-toolkit",
+  "job",
+  "career",
+  "apply-desk"
+ ],
+ "wcag": [
+  "accessibility",
+  "accessibility-review",
+  "accessibility-audit",
+  "a11y"
+ ],
+ "microcopy": [
+  "ux-copy",
+  "ux-writing",
+  "copywriting"
+ ],
+ "seo": [
+  "seo-audit",
+  "seo-intel"
+ ],
+ "plot": [
+  "data-visualization",
+  "create-viz",
+  "dataviz",
+  "chart"
+ ],
+ "dashboard": [
+  "build-dashboard",
+  "data-visualization",
+  "ui-ux-pro-max"
+ ],
+ "excel": [
+  "xlsx",
+  "spreadsheet",
+  "spreadsheets",
+  "formulas"
+ ],
+ "spreadsheet": [
+  "xlsx",
+  "excel",
+  "spreadsheets",
+  "formulas"
+ ],
+ "verify": [
+  "frontend-visual-verify",
+  "design-audit",
+  "audit",
+  "test"
+ ],
+ "phone": [
+  "responsive",
+  "mobile",
+  "viewport",
+  "frontend-visual-verify"
+ ],
+ "mobile": [
+  "responsive",
+  "viewport",
+  "phone",
+  "frontend-visual-verify"
+ ],
+ "screen": [
+  "viewport",
+  "frontend-visual-verify",
+  "responsive"
+ ]
+}

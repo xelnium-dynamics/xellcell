@@ -1,0 +1,20 @@
+{
+ "what": "v5 (git 37b465c) against v6 (working tree) on the owner's real words; produced by tools/route_real.py; no message text stored",
+ "router_sha256": {
+  "v5": "aee7aa9f6d4e632c2eed0d1f707e58e2cdea00beb35774cd32d09926501c2430",
+  "v6": "3de37b58766ec24308b8fda2eeb7bf57961a7addd0d848752373116abbfc55ee"
+ },
+ "real_requests": {
+  "compared": 63,
+  "identical_offer_list": 63,
+  "same_set_of_skills": 63,
+  "sessions_with_a_real_skill_read": 2,
+  "read_skill_was_offered_v5": 2,
+  "read_skill_was_offered_v6": 2
+ },
+ "real_short_messages_up_to_4_words": {
+  "distinct": 21,
+  "get_a_skill_list_v5": 8,
+  "get_a_skill_list_v6": 2
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "about": "Public release eval: each query must return the named architecture note in the top 5 (brain_route.py). Add your own tasks for your own notes; keep a no-match task so the router may say 'no match'.",
+ "tasks": [
+  {
+   "query": "how does the scope gate keep private notes out of other sessions",
+   "scope": "system",
+   "expect": [
+    "layer-03-scope-gate"
+   ]
+  },
+  {
+   "query": "task contract with hard requirements and checks before any edit",
+   "scope": "system",
+   "expect": [
+    "layer-02-task-contract"
+   ]
+  },
+  {
+   "query": "retrieval table of contents card budget and constraint cards",
+   "scope": "system",
+   "expect": [
+    "layer-04-retrieval-toc"
+   ]
+  },
+  {
+   "query": "readiness questions and diagnosing a capability gap",
+   "scope": "system",
+   "expect": [
+    "layer-05-readiness-gap"
+   ]
+  },
+  {
+   "query": "delegation to scout and worker subagents with work orders",
+   "scope": "system",
+   "expect": [
+    "layer-06-delegation"
+   ]
+  },
+  {
+   "query": "blind cross vendor judge typed questions and calibration",
+   "scope": "system",
+   "expect": [
+    "layer-08-jev-judgment"
+   ]
+  },
+  {
+   "query": "recovery after two failed fix rounds and stepping back",
+   "scope": "system",
+   "expect": [
+    "layer-09-recovery"
+   ]
+  },
+  {
+   "query": "closeout task summary brain summary and episode",
+   "scope": "system",
+   "expect": [
+    "layer-10-closeout"
+   ]
+  },
+  {
+   "query": "memory sleep job candidate lessons and release",
+   "scope": "system",
+   "expect": [
+    "layer-11-memory"
+   ]
+  },
+  {
+   "query": "token accounting and cost per session",
+   "scope": "system",
+   "expect": [
+    "layer-13-accounting"
+   ]
+  },
+  {
+   "query": "bake sourdough bread with a rye starter",
+   "scope": "general",
+   "no_match": true
+  }
+ ]
+}

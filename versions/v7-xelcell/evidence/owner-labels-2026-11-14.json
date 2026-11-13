@@ -1,0 +1,13 @@
+{
+ "labelled_requests": 18,
+ "requests_with_a_right_skill_offered": 13,
+ "offered_skills": 89,
+ "offered_and_ticked_right": 26,
+ "requests_where_nothing_offered_fits": 5,
+ "skills_named_as_missing": 1,
+ "short_messages_marked_talk": 18,
+ "talk_that_got_a_skill_list": 1,
+ "short_messages_marked_task": 3,
+ "task_that_got_nothing": 2,
+ "gate": "none (reported only)"
+}

@@ -1,0 +1,44 @@
+{
+  "checked": "2026-11-08 11:49",
+  "judges": [
+    {
+      "cli": "codex",
+      "status": "STRONG",
+      "version": "codex-cli 0.166.0",
+      "logged_in": "yes",
+      "good_canary": "true",
+      "bad_canary": "false",
+      "read_only": "held",
+      "seconds": "19",
+      "reason": "caught the planted flaw, stayed read-only"
+    },
+    {
+      "cli": "claude",
+      "status": "STRONG",
+      "version": "2.1.319 (Claude Code)",
+      "logged_in": "-",
+      "good_canary": "true",
+      "bad_canary": "false",
+      "read_only": "held",
+      "seconds": "12",
+      "reason": "caught the planted flaw, stayed read-only"
+    },
+    {
+      "cli": "agy",
+      "status": "OFF",
+      "version": "1.5.2",
+      "logged_in": "-",
+      "good_canary": "none",
+      "bad_canary": "none",
+      "read_only": "unknown",
+      "seconds": "6",
+      "reason": "no verdict: error: Eligibility check failed: Your current account is not eligible for Antigravity, because it is not curre"
+    }
+  ],
+  "routes": {
+    "claude": "codex",
+    "codex": "claude",
+    "agy": "claude"
+  },
+  "note": "Reference record from the maintainers' machine. It is older than 14 days, so the card shows it as stale until you run tools/judge_smoke.sh on yours."
+}
