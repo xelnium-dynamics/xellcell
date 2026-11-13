@@ -122,6 +122,8 @@ The full write-ups: [`versions/v6-clearwater/README.md`](versions/v6-clearwater/
 
 Requirements: macOS or Linux, Python 3.9+, and Claude Code and/or the Codex CLI. No `pip install`, no `npm install`.
 
+> **On Windows?** Use the **Windows edition** on the [`windows` branch](https://github.com/xelnium-dynamics/xellcell/tree/windows): same engine, Windows file locks, PowerShell-aware gates, Task Scheduler for the idle job, and a test run on Windows, Linux and macOS for every change. `git clone -b windows https://github.com/xelnium-dynamics/xellcell.git`
+
 ```bash
 git clone https://github.com/xelnium-dynamics/xellcell.git ~/xellcell
 cd ~/xellcell
@@ -192,7 +194,7 @@ The repo contains the engine, the architecture notes (`Brain System/system/`), e
 - **The project map follows names, not meaning:** no dynamic calls, no semantic grouping.
 - **Hook adapters exist for Claude Code and Codex.** Other models take part as judges through `--export` / `--record`.
 - **Router recall on real task requests is known only as far as someone has labelled them.** Use `route_real.py --sheet` on your own history.
-- **Developed and tested on macOS.** The idle detection of the dream job is macOS-only; everything else is plain Python.
+- **This branch (`main`) is the macOS/Linux edition**, developed and tested on macOS. Windows users take the [`windows` branch](https://github.com/xelnium-dynamics/xellcell/tree/windows).
 
 ## Repository layout
 
