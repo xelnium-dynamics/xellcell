@@ -1,0 +1,60 @@
+{
+  "_about": "Windows edition. $HOME works where hooks run through PowerShell or Git Bash; if your Codex runs hooks through cmd.exe, write %USERPROFILE% instead of $HOME.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_start.py\" --agent codex",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" prompt --agent codex",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" pre --agent codex",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" post --agent codex",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" end --agent codex",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

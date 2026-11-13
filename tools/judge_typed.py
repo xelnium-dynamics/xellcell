@@ -37,7 +37,7 @@ def question(qid):
 
 def cli_version(exe):
     try:
-        return subprocess.run([exe, "--version"], capture_output=True, text=True, timeout=30).stdout.strip()[:60]
+        return subprocess.run(B.cli_argv(exe) + ["--version"], capture_output=True, text=True, timeout=30).stdout.strip()[:60]
     except Exception:
         return "unknown"
 
@@ -63,14 +63,14 @@ def run_cli(vendor, text, schema, model=None, timeout=300):
         if vendor == "codex":
             sp, op = os.path.join(tmp, "schema.json"), os.path.join(tmp, "out.json")
             json.dump(schema, open(sp, "w"))
-            cmd = [os.environ.get("BRAIN_CODEX_BIN", "codex"), "exec", "--sandbox", "read-only", "--ephemeral",
+            cmd = B.cli_argv(os.environ.get("BRAIN_CODEX_BIN", "codex")) + ["exec", "--sandbox", "read-only", "--ephemeral",
                    "--skip-git-repo-check", "--output-schema", sp, "-o", op]
             if model:
                 cmd += ["--model", model]
             p = subprocess.run(cmd + ["-"], cwd=tmp, input=text, capture_output=True, text=True, timeout=timeout, env=env)
             raw = open(op, encoding="utf-8").read() if os.path.exists(op) else p.stdout
         else:
-            cmd = [os.environ.get("BRAIN_CLAUDE_BIN", "claude"), "-p", text, "--model", model or TIER1_MODEL,
+            cmd = B.cli_argv(os.environ.get("BRAIN_CLAUDE_BIN", "claude")) + ["-p", text, "--model", model or TIER1_MODEL,
                    "--allowedTools", "", "--permission-mode", "dontAsk", "--output-format", "json", "--json-schema", json.dumps(schema)]
             p = subprocess.run(cmd, cwd=tmp, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout, env=env)
             raw = p.stdout

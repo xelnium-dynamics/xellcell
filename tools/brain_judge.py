@@ -506,7 +506,7 @@ def call(vendor, text, cfg, timeout, artifacts=(), tmp=None):
         if vendor == "codex":
             exe = os.environ.get("BRAIN_CODEX_BIN", "codex")
             out_p = os.path.join(tmp, "out.json")
-            cmd = [exe, "exec", "--sandbox", "read-only", "--ephemeral", "--skip-git-repo-check",
+            cmd = B.cli_argv(exe) + ["exec", "--sandbox", "read-only", "--ephemeral", "--skip-git-repo-check",
                    "--output-schema", schema_p, "-o", out_p]
             if cfg.get("codex_model"):
                 cmd += ["--model", cfg["codex_model"]]
@@ -516,7 +516,7 @@ def call(vendor, text, cfg, timeout, artifacts=(), tmp=None):
             raw = open(out_p, encoding="utf-8").read() if os.path.exists(out_p) else p.stdout
         else:
             exe = os.environ.get("BRAIN_CLAUDE_BIN", "claude")
-            cmd = [exe, "-p", open(pk, encoding="utf-8").read(), "--model", cfg.get("claude_model", "sonnet"),
+            cmd = B.cli_argv(exe) + ["-p", open(pk, encoding="utf-8").read(), "--model", cfg.get("claude_model", "sonnet"),
                    "--allowedTools", "Read", "--permission-mode", "dontAsk", "--output-format", "json",
                    "--json-schema", json.dumps(SCHEMA)]
             p = subprocess.run(cmd, cwd=tmp, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout, env=dict(os.environ, BRAIN_OFF="1"))

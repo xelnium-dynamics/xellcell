@@ -192,7 +192,7 @@ def work_suite(dry):
             shutil.copytree(os.path.join(base, "setup"), ws, dirs_exist_ok=True)
         cmd = (agent + " " + json.dumps(t["prompt"])) if agent else f"{sys.executable} -I {json.dumps(os.path.join(base, 'solution.py'))}"
         t0 = time.time()
-        r = subprocess.run(cmd, shell=True, cwd=ws, capture_output=True, text=True, timeout=1800)
+        r = B.shell_run(cmd, cwd=ws, capture_output=True, text=True, timeout=1800)
         checks = tier0.run("## Checks\n" + "".join(f"- R{i + 1}: {c}\n" for i, c in enumerate(t["checks"])), ws)
         ok = r.returncode == 0 and bool(checks) and all(c["pass"] for c in checks)
         rows.append({"id": t["id"], "domain": t["domain"], "pass": ok, "exit": r.returncode, "seconds": round(time.time() - t0, 1),

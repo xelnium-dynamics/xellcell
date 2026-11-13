@@ -3,7 +3,9 @@
 Every tool adds its own folder to sys.path before importing this module, because `python3 -I`
 does not put the script's folder on the import path.
 """
-import hashlib, json, os, re, subprocess, tempfile, time
+import hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
+
+IS_WINDOWS = os.name == "nt"  # Windows edition: the helpers below are the only place the platforms differ
 
 ROOT = os.environ.get("BRAIN_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VAULT = os.environ.get("BRAIN_VAULT") or os.path.join(ROOT, "Brain System")  # the Obsidian vault folder
@@ -84,27 +86,111 @@ def lock(name="repo", timeout_s=30.0):
     """Advisory cross-process lock on state/<name>.lock (v2.1, O1). Every tool that writes shared state
     (index + TOC, live-links, git commits by sleep/gym) takes it, so two sessions never interleave writes.
     Raises LockBusy after timeout_s. The lock dies with the process, so a crash never leaves it stuck."""
-    import fcntl
     os.makedirs(STATE, exist_ok=True)
     fd = os.open(os.path.join(STATE, f"{name}.lock"), os.O_RDWR | os.O_CREAT, 0o644)
     t0 = time.time()
     try:
         while True:
             try:
-                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                _lock_fd(fd)
                 break
             except OSError:
                 if time.time() - t0 >= timeout_s:
                     raise LockBusy(name)
                 time.sleep(0.05)
-        os.ftruncate(fd, 0)
-        os.write(fd, f"{os.getpid()} {now()}\n".encode())
+        if not IS_WINDOWS:  # Windows: a locked byte range cannot be rewritten through another handle; the pid note is skipped
+            os.ftruncate(fd, 0)
+            os.write(fd, f"{os.getpid()} {now()}\n".encode())
         yield
     finally:
         try:
-            fcntl.flock(fd, fcntl.LOCK_UN)
+            _unlock_fd(fd)
         finally:
             os.close(fd)
+
+
+def _lock_fd(fd):
+    """Non-blocking exclusive lock: fcntl.flock on macOS/Linux, msvcrt.locking on byte 0 on Windows. OSError if held."""
+    if IS_WINDOWS:
+        import msvcrt
+        os.lseek(fd, 0, os.SEEK_SET)
+        msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+    else:
+        import fcntl
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+
+def _unlock_fd(fd):
+    if IS_WINDOWS:
+        import msvcrt
+        os.lseek(fd, 0, os.SEEK_SET)
+        try:
+            msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)
+        except OSError:
+            pass
+    else:
+        import fcntl
+        fcntl.flock(fd, fcntl.LOCK_UN)
+
+
+def lock_is_held(name):
+    """True when another process holds state/<name>.lock right now (probe without waiting)."""
+    p = os.path.join(STATE, f"{name}.lock")
+    if not os.path.exists(p):
+        return False
+    try:
+        fd = os.open(p, os.O_RDWR)
+    except OSError:
+        return False
+    try:
+        _lock_fd(fd)
+    except OSError:
+        os.close(fd)
+        return True
+    _unlock_fd(fd)
+    os.close(fd)
+    return False
+
+
+def _git_bash():
+    """Git for Windows' bash (never the WSL launcher in System32), or None."""
+    for base in (os.environ.get("ProgramFiles", r"C:\Program Files"), os.environ.get("ProgramW6432", ""),
+                 os.environ.get("LOCALAPPDATA", "") and os.path.join(os.environ["LOCALAPPDATA"], "Programs")):
+        if base:
+            for rel in (r"Git\bin\bash.exe", r"Git\usr\bin\bash.exe"):
+                p = os.path.join(base, rel)
+                if os.path.isfile(p):
+                    return p
+    w = shutil.which("bash")
+    if w and "system32" not in w.lower():
+        return w
+    return None
+
+
+def shell_run(cmd, **kw):
+    """Run a contract / Gym / Harness check line. POSIX shell on macOS and Linux; on Windows Git Bash when it is
+    installed (so the same `test -f x && grep -q y x` lines work), else cmd.exe."""
+    if IS_WINDOWS:
+        bash = _git_bash()
+        if bash:
+            return subprocess.run([bash, "-c", cmd], **kw)
+    return subprocess.run(cmd, shell=True, **kw)
+
+
+def cli_argv(exe):
+    """The argv prefix for an external CLI (judge, typed questions). Windows resolves .cmd/.exe shims through PATHEXT
+    and runs a script whose first line is a python shebang with this interpreter (Windows ignores shebang lines)."""
+    if not IS_WINDOWS:
+        return [exe]
+    path = exe if os.path.isfile(exe) else (shutil.which(exe) or exe)
+    try:
+        with open(path, "rb") as fh:
+            first = fh.readline(200)
+        if first.startswith(b"#!") and b"python" in first:
+            return [sys.executable, path]
+    except OSError:
+        pass
+    return [path]
 
 
 def git_commit_paths(paths, message, root=None):

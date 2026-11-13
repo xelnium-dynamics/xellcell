@@ -33,8 +33,10 @@ final order commit confirm understand purpose exist exists perfectly demand firs
 import hydro_skills as HS  # noqa: E402
 from hydro_skills import STOP  # noqa: E402
 STOP = STOP | set("nothing completely main into them before can you your yours it's i'm don't".split())
-FREE_WRITE = tuple(os.path.expanduser(p) for p in os.environ.get("BRAIN_FREE_WRITE", "").split(":") if p) or (
-    os.path.expanduser("~/.claude") + os.sep, "/tmp/", "/private/tmp/", "/var/folders/", "/private/var/folders/")
+import tempfile as _tempfile
+FREE_WRITE = tuple(os.path.expanduser(p) for p in os.environ.get("BRAIN_FREE_WRITE", "").split(os.pathsep) if p) or (
+    os.path.expanduser("~/.claude") + os.sep, "/tmp/", "/private/tmp/", "/var/folders/", "/private/var/folders/",
+    os.path.realpath(_tempfile.gettempdir()) + os.sep, os.path.abspath(_tempfile.gettempdir()) + os.sep)
 RISKY = [
     (r"\bgit\s+push\b", "pushes to a remote"),
     (r"\b(npm|pnpm|yarn)\s+publish\b|\bgh\s+release\s+create\b|\btwine\s+upload\b", "publishes a package or release"),
@@ -46,6 +48,10 @@ RISKY = [
     (r"(^|\s)(then|do|else|xargs|-exec|-execdir|command|time)\s+(-\S+\s+)*rm(\s|$)|\bfind\b[^;&|\n]*\s-delete\b|\bgit\s+clean\b",
      "deletes files (never delete: move to the Trash or _to_delete)"),
     (r"\b(brew|port)\s+install\b|\bpip3?\s+install\b|\bnpm\s+(i|install)\s+(-g|--global)\b|\buv\s+tool\s+install\b", "installs software"),
+    # Windows edition: PowerShell and cmd.exe forms of the same actions
+    (r"(?i)\b(Remove-Item|ri)\b|(^|[;&|(\n]\s*)(del|erase|rd|rmdir)\s", "deletes files (never delete: move to the Recycle Bin or _to_delete)"),
+    (r"(?i)\b(winget|choco|scoop)\s+install\b|\bInstall-(Module|Package)\b", "installs software"),
+    (r"(?i)\b(reg\s+(add|delete)|Set-ItemProperty\s+-Path\s+['\"]?HK|schtasks\s+/create|Set-ExecutionPolicy)\b", "changes the system"),
     (r"\bsudo\b|\bdiskutil\s+erase|\blaunchctl\s+(load|bootstrap)\b|\bcrontab\b|\bdefaults\s+write\b", "changes the system"),
 ]
 NET = re.compile(r"\b(curl|wget|http|https|ssh|scp|sftp|nc|ftp)\s|\bgh\s+(api|issue|pr|gist|release)\b|\bgit\s+push\b|"
@@ -341,6 +347,7 @@ SELF_DIR = os.path.realpath(os.path.join(B.VAULT, "self"))
 def _norm(text):
     t = re.sub(r"['\"]\s*\+\s*['\"]", "", text)        # 'Brain System/' + 'self/x'  ->  Brain System/self/x
     t = t.replace("\\ ", " ")
+    t = t.replace("\\", "/")                            # Windows edition: Brain System\\self\\x -> Brain System/self/x
     t = re.sub(r"/(\./)+", "/", t)                        # Brain System/./self
     t = re.sub(r"/{2,}", "/", t)
     return t
@@ -478,6 +485,7 @@ WRITE_VERBS = [  # v2.1 (O4): commands that change files although no redirect is
     r"\bsed\s+(-[a-zA-Z]*\s+)*-i", r"\bperl\s+(-\w+\s+)*-\w*i", r"\bdd\b[^;&|]*\bof=", r"\btar\s+(-?\w*x\w*)\b", r"\bunzip\b",
     r"\bpatch\b", r"\bcurl\b[^;&|]*\s(-o|-O|--output|--remote-name)\b", r"\bwget\b(?![^;&|]*-O\s*-)", r"\bgit\s+(checkout\s+--|restore\b|reset\s+--hard\b|apply\b|am\b|clean\b|stash\s+pop\b)",
     r"(^|[;&|(]\s*)(install|ln|touch|truncate|rsync|ditto|rmdir|trash)\s", r"\bnode\s+-e\b[^;&|]*writeFile", r"\bruby\s+-e\b[^;&|]*File\.write",
+    r"(?i)\b(Set-Content|Add-Content|Out-File|New-Item|Copy-Item|Move-Item|Rename-Item|Expand-Archive)\b",  # Windows edition: PowerShell writes
 ]
 PY_WRITE = re.compile(r"open\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"][wax]b?\+?['\"]|\.write_(text|bytes)\(|shutil\.(copy\w*|move|rmtree)|os\.(remove|unlink|rename|replace|rmdir|makedirs|mkdir)\(")
 

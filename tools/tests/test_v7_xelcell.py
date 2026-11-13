@@ -50,6 +50,7 @@ class JudgeV7(Base):
             {"requirement": "R2", "verdict": "pass", "evidence": "no quote here", "severity": "none"}]}, contract, "all numbers carry SI units")
         self.assertEqual((v["overall"], len(w)), ("pass", 1))
 
+    @unittest.skipIf(os.name == "nt", "Windows ignores chmod read bits, so a file cannot be made unreadable this way")
     def test_q3_an_unreadable_artifact_is_not_advertised_and_does_not_crash(self):
         sid = self.new()
         ok = write(self.root, "out/report.md", "# Report\nfine\n")

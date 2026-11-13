@@ -130,7 +130,7 @@ def run_one(rid, kind, arg, cwd):
     try:
         if kind == "cmd":
             # v6: 300 s by default; BRAIN_TIER0_TIMEOUT raises it for a slow suite on a busy machine (a timeout is a fail)
-            p = subprocess.run(arg, shell=True, cwd=cwd, capture_output=True, text=True, timeout=int(os.environ.get("BRAIN_TIER0_TIMEOUT", "300")))
+            p = B.shell_run(arg, cwd=cwd, capture_output=True, text=True, timeout=int(os.environ.get("BRAIN_TIER0_TIMEOUT", "300")))
             r = res(rid, kind, arg, p.returncode == 0, p.stdout + p.stderr)
             r["exit"] = p.returncode
             return r

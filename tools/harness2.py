@@ -447,7 +447,7 @@ def main():
             led["runs"].append({"arm": a.arm, "at": B.now(), "exit": "patch_failed" if ws else "copy_refused", "tail": err, "workspace": ws})
             save(sid, led)
             sys.exit(err)
-        r = subprocess.run(led["check"], shell=True, cwd=ws, capture_output=True, text=True, timeout=900)
+        r = B.shell_run(led["check"], cwd=ws, capture_output=True, text=True, timeout=900)
         led["R"] = led.get("R", 0) + 1
         out_copy = out_hash = None
         if a.output:

@@ -1,0 +1,62 @@
+{
+  "_about": "Windows edition. $HOME works where hooks run through PowerShell or Git Bash; if your agent runs hooks through cmd.exe, write %USERPROFILE% instead of $HOME.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_start.py\" --agent claude",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" prompt",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell|Read|Grep|Glob|WebSearch|WebFetch|mcp__.*(search|fetch|scrape|crawl).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" pre",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Write|Edit|MultiEdit|NotebookEdit|Read|Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" post",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$HOME/xellcell/tools/brain_hooks.py\" end",
+            "timeout": 40
+          }
+        ]
+      }
+    ]
+  }
+}

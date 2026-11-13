@@ -21,9 +21,10 @@ def read_hook_input():
     try:
         if sys.stdin is None or sys.stdin.isatty():
             return {}
-        r, _, _ = select.select([sys.stdin], [], [], 0.2)
-        if not r:
-            return {}
+        if not B.IS_WINDOWS:  # Windows: select() works on sockets only; a hook always pipes its JSON, so read directly
+            r, _, _ = select.select([sys.stdin], [], [], 0.2)
+            if not r:
+                return {}
         data = sys.stdin.read(200000)
         return json.loads(data) if data.strip() else {}
     except Exception:
@@ -143,6 +144,8 @@ def card(agent, cwd):
             parts.append(f"dream {dl.get('finished', '?')} (+{dl.get('transcripts', {}).get('new_reflections', 0)} refl, "
                          f"{dl.get('graph', {}).get('bridges_found', 0)} bridges)")
         lines.append("memory: " + " | ".join(parts))
+    if B.IS_WINDOWS and not sys.flags.utf8_mode:  # Windows edition: text files and pipes must be UTF-8
+        lines.append("WINDOWS  Python is not in UTF-8 mode: use Python 3.15+ (UTF-8 by default) or add -X utf8 to every hook command; notes with non-ASCII text may fail")
     n_err, last_err = B.hook_errors(7)
     if n_err:  # v3 (A5): a hook that errors lets the call through, so it must not stay silent
         lines.append(f"HOOK ERRORS  {n_err} in the last 7 days (a gate that errors lets the call through): tell the owner · last: {last_err[:140]}")

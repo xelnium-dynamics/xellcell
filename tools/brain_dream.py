@@ -86,7 +86,7 @@ def _handle_sig(_signum, _frame):
 def _apply_low_priority():
     try:
         os.nice(15)
-    except OSError:
+    except (OSError, AttributeError):  # os.nice does not exist on Windows
         pass
 
 
@@ -111,28 +111,15 @@ def system_ready(min_idle=180.0, max_load=None, check_idle=True, check_load=True
     load_cap = float(max_load if max_load is not None else max(2.5, cpu_n * 0.75))
     try:
         load1 = round(os.getloadavg()[0], 2)
-    except OSError:
+    except (OSError, AttributeError):  # no load average on Windows
         load1 = 0.0
     idle = hid_idle_seconds() if check_idle else None
     metrics = {"load_1m": load1, "max_load": load_cap, "idle_s": idle, "min_idle": min_idle}
 
     if os.path.exists(os.path.join(B.STATE, "sleep.lock")):
         return False, "sleep.lock active", metrics
-    repo_lock_p = os.path.join(B.STATE, "repo.lock")
-    if os.path.exists(repo_lock_p):
-        import fcntl
-        fd = None
-        try:
-            fd = os.open(repo_lock_p, os.O_RDONLY)
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            fcntl.flock(fd, fcntl.LOCK_UN)
-        except BlockingIOError:
-            return False, "repo.lock held by active writer", metrics
-        except OSError:
-            pass
-        finally:
-            if fd is not None:
-                os.close(fd)
+    if B.lock_is_held("repo"):
+        return False, "repo.lock held by active writer", metrics
     if force:
         return True, "forced", metrics
     if check_load and load1 > load_cap:
@@ -959,7 +946,23 @@ def launchd_plist_dict(interval=1800, min_idle=180):
     }
 
 
+WIN_TASK = "XellCell Dream"
+
+
+def windows_task_argv(min_idle=180, remove=False):
+    """Windows: Task Scheduler runs one gentle cycle whenever the PC has been idle for min_idle (rounded up to minutes)."""
+    if remove:
+        return ["schtasks", "/Delete", "/TN", WIN_TASK, "/F"]
+    minutes = max(1, int((min_idle + 59) // 60))
+    tr = f'"{sys.executable}" -I "{os.path.join(B.TOOLS, "brain_dream.py")}" --once'
+    return ["schtasks", "/Create", "/SC", "ONIDLE", "/I", str(minutes), "/TN", WIN_TASK, "/TR", tr, "/F"]
+
+
 def install_launchd(interval=1800, min_idle=180):
+    if B.IS_WINDOWS:
+        r = subprocess.run(windows_task_argv(min_idle), capture_output=True, text=True)
+        return {"installed": r.returncode == 0, "scheduler": "Windows Task Scheduler", "task": WIN_TASK,
+                "note": (r.stdout or r.stderr or "").strip()[:300]}
     os.makedirs(os.path.dirname(PLIST_PATH), exist_ok=True)
     os.makedirs(os.path.dirname(DREAM_LOG), exist_ok=True)
     data = launchd_plist_dict(interval=interval, min_idle=min_idle)
@@ -973,6 +976,9 @@ def install_launchd(interval=1800, min_idle=180):
 
 
 def uninstall_launchd():
+    if B.IS_WINDOWS:
+        r = subprocess.run(windows_task_argv(remove=True), capture_output=True, text=True)
+        return {"uninstalled": r.returncode == 0, "task": WIN_TASK, "note": (r.stdout or r.stderr or "").strip()[:300]}
     uid = os.getuid()
     if os.path.exists(PLIST_PATH):
         subprocess.run(["launchctl", "bootout", f"gui/{uid}", PLIST_PATH], capture_output=True)
@@ -989,14 +995,14 @@ def status():
     idle = hid_idle_seconds()
     try:
         load1 = round(os.getloadavg()[0], 2)
-    except OSError:
+    except (OSError, AttributeError):
         load1 = None
     return {
         "cycles": st.get("cycles", 0),
         "tracked_transcripts": len(st.get("transcripts", {})),
         "last_dream": st.get("last_dream"),
         "lock_held": os.path.exists(DREAM_LOCK),
-        "launchd_installed": os.path.exists(PLIST_PATH),
+        "launchd_installed": os.path.exists(PLIST_PATH) if not B.IS_WINDOWS else None,
         "launchd_plist": PLIST_PATH,
         "idle_s": idle,
         "load_1m": load1,

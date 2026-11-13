@@ -12,9 +12,48 @@ Claude Code and Codex work inside it; a different vendor's model judges the resu
   <img alt="Python 3.9+ standard library only" src="https://img.shields.io/badge/python-3.9%2B%20stdlib%20only-informational">
   <img alt="169 tests" src="https://img.shields.io/badge/tests-169%20passing-brightgreen">
   <img alt="Claude Code and Codex hooks" src="https://img.shields.io/badge/hooks-Claude%20Code%20%C2%B7%20Codex-8A2BE2">
+  <img alt="tests on Windows, Linux and macOS" src="https://github.com/xelnium-dynamics/xellcell/actions/workflows/tests.yml/badge.svg?branch=windows">
 </p>
 
 <p align="center"><i>Coding agents shouldn't grade their own homework.</i><br>XellCell v7.1 · by <b>Xelnium Dynamics</b> · free and open source</p>
+
+---
+
+## Windows edition (this branch)
+
+You are on the **`windows` branch**: the same engine as `main` (the macOS/Linux edition), with these Windows adaptations:
+
+- **File locks:** `msvcrt.locking` instead of `fcntl`.
+- **Hook input:** read without `select()`.
+- **Checks:** contract and Gym `cmd:` lines run through Git Bash when it is installed, otherwise through cmd.exe.
+- **Judge CLIs:** `.cmd` shims (`codex.cmd`, `claude.cmd`) are resolved through PATHEXT.
+- **Write and delete gates:** recognise PowerShell (`Set-Content`, `Out-File`, `Remove-Item`, `del` …) and Windows installers (`winget`, `choco`, `scoop`).
+- **Temp folder:** the Windows temp folder counts as free scratch space.
+- **Dream job:** a Task Scheduler task that runs when the PC is idle, instead of macOS launchd.
+
+The **tests workflow** on GitHub Actions runs the whole suite on Windows, Linux and macOS for every push to this branch.
+
+**Requirements:**
+- **Python 3.15 or newer.** It reads and writes UTF-8 by default; older Python on Windows uses the legacy code page, and the brain's `python -I` hooks ignore `PYTHONUTF8`. The readiness card warns you if UTF-8 mode is off.
+- **Git for Windows.** Its bash runs the `cmd:` checks.
+- **Claude Code and/or the Codex CLI.**
+
+**Set up (PowerShell):**
+
+```powershell
+git clone -b windows https://github.com/xelnium-dynamics/xellcell.git $HOME\xellcell
+cd $HOME\xellcell\tools
+python -I -m unittest discover -s tests -p "test_*.py"     # the whole suite
+cd ..
+python -I tools\brain_index.py                            # index YOUR skills and the vault
+python -I tools\brain_start.py --agent claude --format text
+```
+
+**Hooks:** merge `examples\windows\claude-code-settings.hooks.json` into `%USERPROFILE%\.claude\settings.json` and `examples\windows\codex-hooks.json` into `%USERPROFILE%\.codex\hooks.json`. The examples use `$HOME`, which PowerShell and Git Bash understand; if your agent runs hooks through cmd.exe, write `%USERPROFILE%` instead.
+
+**Idle dream job (optional):** `python -I tools\brain_dream.py --install-launchd` creates the Task Scheduler task "XellCell Dream"; `--uninstall-launchd` removes it.
+
+Everything below this section describes the macOS/Linux commands; on Windows use `python` for `python3` and backslashes in paths.
 
 ---
 
