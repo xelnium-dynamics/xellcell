@@ -61,6 +61,13 @@ TOOLS = [
      "inputSchema": {"type": "object", "properties": {"mode": {"type": "string", "enum": ["status", "dry-run", "once", "apply-links"], "default": "status"}}}},
 ]
 
+# MCP tool annotations. Everything runs locally (no open world) and nothing deletes.
+_READ = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}
+_WRITE = {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False}
+_WRITERS = {"brain_session_new", "brain_checkpoint", "brain_close", "brain_learn_session", "brain_dream"}
+for _t in TOOLS:
+    _t["annotations"] = dict(_WRITE if _t["name"] in _WRITERS else _READ)
+
 
 def sh(args, timeout=300):
     p = subprocess.run([PY, "-I"] + args, capture_output=True, text=True, timeout=timeout, cwd=B.ROOT)

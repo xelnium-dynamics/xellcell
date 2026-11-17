@@ -13,6 +13,7 @@ Claude Code and Codex work inside it; a different vendor's model judges the resu
   <img alt="169 tests" src="https://img.shields.io/badge/tests-169%20passing-brightgreen">
   <img alt="Claude Code and Codex hooks" src="https://img.shields.io/badge/hooks-Claude%20Code%20%C2%B7%20Codex-8A2BE2">
   <img alt="tests on Windows, Linux and macOS" src="https://github.com/xelnium-dynamics/xellcell/actions/workflows/tests.yml/badge.svg?branch=windows">
+  <a href="https://m8ven.ai/mcp/xelnium-dynamics-xellcell-u1a2bi?s=readme"><img alt="M8ven Score" src="https://m8ven.ai/badge/mcp/xelnium-dynamics-xellcell-u1a2bi?v=a416e1d272cd0df62cb2c21e24127d96"></a>
 </p>
 
 <p align="center"><i>Coding agents shouldn't grade their own homework.</i><br>XellCell v7.1 · by <b>Xelnium Dynamics</b> · free and open source</p>
