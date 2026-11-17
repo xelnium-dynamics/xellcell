@@ -10,7 +10,7 @@ Claude Code and Codex work inside it; a different vendor's model judges the resu
 <p align="center">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue">
   <img alt="Python 3.9+ standard library only" src="https://img.shields.io/badge/python-3.9%2B%20stdlib%20only-informational">
-  <img alt="169 tests" src="https://img.shields.io/badge/tests-169%20passing-brightgreen">
+  <img alt="172 tests" src="https://img.shields.io/badge/tests-172%20passing-brightgreen">
   <img alt="Claude Code and Codex hooks" src="https://img.shields.io/badge/hooks-Claude%20Code%20%C2%B7%20Codex-8A2BE2">
   <a href="https://m8ven.ai/mcp/xelnium-dynamics-xellcell-u1a2bi?s=readme"><img alt="M8ven Score" src="https://m8ven.ai/badge/mcp/xelnium-dynamics-xellcell-u1a2bi?v=a416e1d272cd0df62cb2c21e24127d96"></a>
 </p>
@@ -104,7 +104,7 @@ Every number below comes from a file in `versions/` that was written by a comman
 | The owner's 63 real task requests: skills offered | — | identical to v5 for 63 of 63 | same |
 | Requests where the owner confirmed a right skill was offered | — | 13 of 18 labelled | `versions/v7-xelcell/evidence/owner-labels-2026-11-14.json` |
 | Reviewer-written holdout prompts: recall · false alarms | 32/40 · 11/20 | 32/40 · 2/20 | `versions/v6-clearwater/evidence/route-eval-holdout.txt`, `versions/v7-xelcell/README.md` |
-| Test suite | 111 | 169, all passing | `bash tools/test_all.sh` |
+| Test suite | 111 | 172, all passing | `bash tools/test_all.sh` |
 
 What these numbers do **not** say: the router is not smarter than before. For real task requests it offers what v5 offered. What changed is that small talk stays quiet and the measurement now includes real prompts.
 
@@ -128,7 +128,7 @@ Requirements: macOS or Linux, Python 3.9+, and Claude Code and/or the Codex CLI.
 ```bash
 git clone https://github.com/xelnium-dynamics/xellcell.git ~/xellcell
 cd ~/xellcell
-bash tools/test_all.sh                 # 169 tests, about 1-2 minutes
+bash tools/test_all.sh                 # 172 tests, about 1-2 minutes
 python3 -I tools/brain_index.py        # indexes YOUR skills and the vault (index/ and 00-toc/ stay local)
 python3 -I tools/brain_start.py --agent claude --format text   # the readiness card
 ```
