@@ -28,45 +28,48 @@ INSTRUCTIONS = (
 
 TOOLS = [
     {"name": "brain_card", "description": "The Hydro Brain readiness card (release, index state, open sessions, the 7-step flow). Call once at the start of a conversation.",
+     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
      "inputSchema": {"type": "object", "properties": {"folder": {"type": "string", "description": "Working folder if any (default: none)"}}}},
     {"name": "brain_route", "description": "Find brain notes and skills for a task, inside a scope class (scope gate: self/ only for cv_official or personal).",
+     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["query"], "properties": {"query": {"type": "string"},
                      "scope": {"type": "string", "enum": list(B.SCOPES), "default": "general"}}}},
     {"name": "brain_skills", "description": "Skills from Hydro Brain that fit this request (none are preloaded). Read the SKILL.md of each one that fits with brain_read.",
+     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["request"], "properties": {"request": {"type": "string"},
                      "scope": {"type": "string", "enum": list(B.SCOPES), "default": "general"},
                      "limit": {"type": "integer", "default": 6}}}},
     {"name": "brain_find_skills", "description": "Diagnose and rank matching skills with Hydro Brain's unified scorer (returns scores, match reasons, and SKILL.md paths).",
+     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["request"], "properties": {"request": {"type": "string"},
                      "scope": {"type": "string", "enum": list(B.SCOPES), "default": "general"},
                      "limit": {"type": "integer", "default": 6}}}},
     {"name": "brain_read", "description": "Read a brain note (Brain System/...) or a SKILL.md from the brain's skill library or skill registry paths, inside the scope.",
+     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["path"], "properties": {"path": {"type": "string"}, "lines": {"type": "string", "description": "e.g. 1-80"},
                      "scope": {"type": "string", "enum": list(B.SCOPES), "default": "general"}}}},
     {"name": "brain_session_new", "description": "Open a brain session (task contract) for this task. Put the owner's request verbatim.",
+     "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["title", "request"], "properties": {"title": {"type": "string"}, "request": {"type": "string"},
                      "scope": {"type": "string", "enum": list(B.SCOPES), "default": "general"},
                      "lane": {"type": "string", "enum": list(B.LANES), "default": "fast"},
                      "requirements": {"type": "array", "items": {"type": "string"}, "description": "Hard requirements, each ending with 'check: <how>'"}}}},
     {"name": "brain_checkpoint", "description": "Record a milestone in the open brain session.",
+     "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["session", "note"], "properties": {"session": {"type": "string"}, "note": {"type": "string"}}}},
     {"name": "brain_close", "description": "Close the brain session with the two summaries (built from what was really done and verified) and run fast post-session learning.",
+     "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
      "inputSchema": {"type": "object", "required": ["session", "task_summary", "brain_summary"], "properties": {"session": {"type": "string"},
                      "task_summary": {"type": "string"}, "brain_summary": {"type": "string"},
                      "approval": {"type": "string", "enum": ["pending", "approved", "rejected"], "default": "pending"}}}},
     {"name": "brain_learn_session", "description": "Run Hydro Brain's fast post-session improvement layer on a session (or latest closed session) to extract lessons, gotchas, and skill telemetry.",
+     "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
      "inputSchema": {"type": "object", "properties": {"session": {"type": "string", "description": "Session ID (defaults to latest session)"},
                      "force": {"type": "boolean", "default": False}}}},
     {"name": "brain_dream", "description": "Inspect or trigger Hydro Brain 2's lightweight dreaming self-improvement cycle (thinking mining, missing-node linking, wiki lint).",
+     "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False},
      "inputSchema": {"type": "object", "properties": {"mode": {"type": "string", "enum": ["status", "dry-run", "once", "apply-links"], "default": "status"}}}},
 ]
-
-# MCP tool annotations. Everything runs locally (no open world) and nothing deletes.
-_READ = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}
-_WRITE = {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": False, "openWorldHint": False}
-_WRITERS = {"brain_session_new", "brain_checkpoint", "brain_close", "brain_learn_session", "brain_dream"}
-for _t in TOOLS:
-    _t["annotations"] = dict(_WRITE if _t["name"] in _WRITERS else _READ)
 
 
 def sh(args, timeout=300):
